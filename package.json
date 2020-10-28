@@ -1,7 +1,7 @@
 {
-  "name": "create-react-component-folder",
-  "version": "0.3.4",
-  "description": "Creates single react component folder structure",
+  "name": "create-react-component-folder-jovpet",
+  "version": "1.0.2",
+  "description": "Creates single react component folder structure. Forked version with enhanced scss",
   "main": "./lib/index",
   "readme": "README.md",
   "engines": {
@@ -27,9 +27,9 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/snaerth/create-react-component-folder"
+    "url": "git+https://github.com/jovpet/create-react-component-folder"
   },
-  "author": "Snær Seljan Þóroddsson",
+  "authors": ["Snær Seljan Þóroddsson", "Jovan Petrovic"],
   "license": "MIT",
   "devDependencies": {
     "app-root-dir": "^1.0.2",

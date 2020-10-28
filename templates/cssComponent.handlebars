@@ -1,0 +1,10 @@
+{{#if scss }}
+{{#if scssinclude}}
+{{#each scssinclude}}
+@import '{{this}}';
+{{/each}}
+{{/if}}
+{{/if}}
+
+.{{ name }} {
+}

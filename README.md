@@ -1,7 +1,7 @@
 # Create React Component folder
 
-[![NPM version](https://img.shields.io/npm/v/create-react-component-folder.svg?style=flat)](https://npmjs.com/package/create-react-component-folder)
-[![NPM downloads](https://img.shields.io/npm/dm/create-react-component-folder.svg?style=flat)](https://npmjs.com/package/create-react-component-folder)
+[![NPM version](https://img.shields.io/npm/v/create-react-component-folder-jovpet.svg?style=flat)](https://npmjs.com/package/create-react-component-folder-jovpet)
+[![NPM downloads](https://img.shields.io/npm/dm/create-react-component-folder-jovpet.svg?style=flat)](https://npmjs.com/package/create-react-component-folder-jovpet)
 
 ## About
 
@@ -138,6 +138,10 @@ So now all you have to do is type **npx crcf componentName** and you will get al
   "graphql",
   "stylesext",
   {
+    "scssinclude": [
+      "settings",
+      "settingsCustom"
+    ],
     "output": "base/directory/to/place/created/components"
   }
 ]
@@ -214,6 +218,7 @@ $ npx crcf --help
     -sb, --stories      Add Storie file to component
     -ns, --nosemi       No semicolons
     -x, --namedexports  Creates files using named exports
+    -si, --scssinclude  Adds array of included files in scss file (Works only with -s | --scss)
 ```
 
 ## Author
