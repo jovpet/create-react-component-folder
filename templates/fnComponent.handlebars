@@ -3,6 +3,7 @@ import * as React from 'react';
 {{else}}
 import React from 'react';
 {{/if}}
+{{#if cssmodules}}import classes from './{{ name }}.module.{{ cssext }}';{{/if}}
 {{#if proptypes}}
   import PropTypes from 'prop-types';
 {{/if}}

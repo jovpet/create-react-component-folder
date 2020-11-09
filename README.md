@@ -12,7 +12,7 @@ There is also support for Typescript, React Native, Less and Sass.
 ## Quick Overview
 
 ```sh
-$ npm install --save-dev create-react-component-folder
+$ npm install --save-dev create-react-component-folder-jovpet
 $ npx crcf myComponent
 ```
 
@@ -29,7 +29,7 @@ _([npx](https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7
 ## Installation
 
 ```sh
-$ npm install --save-dev create-react-component-folder
+$ npm install --save-dev create-react-component-folder-jovpet
 ```
 
 ## Creating a single component
@@ -64,7 +64,7 @@ myComponent
 ├── index.js
 ├── myComponent.js
 ├── myComponent.css
-├── myComponent.test.handlebars
+├── myComponent.test
 ```
 
 ### With storybook enabled
@@ -74,7 +74,7 @@ myComponent
 ├── index.js
 ├── myComponent.js
 ├── myComponent.css
-├── myComponent.test.handlebars
+├── myComponent.test
 ├── myComponent.stories.js
 ```
 
@@ -140,8 +140,7 @@ So now all you have to do is type **npx crcf componentName** and you will get al
   "stylesext",
   {
     "scssinclude": [
-      "settings",
-      "settingsCustom"
+      "./src/assets/scss/settings"
     ],
     "output": "base/directory/to/place/created/components"
   }

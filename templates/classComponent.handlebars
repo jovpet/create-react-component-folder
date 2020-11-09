@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 {{#if reactnative }}
 import { View, Text } from 'react-native';
 {{/if}}
+{{#if cssmodules}}import classes from './{{ name }}.module.{{ cssext }}';{{/if}}
 {{#if proptypes}}
 import PropTypes from 'prop-types';
 {{/if}}
