@@ -2,9 +2,9 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import {{#if export~}} { {{ name }} } {{else~}} {{name}} {{~/if}} from './
 {{~#if uppercase~}}
-  {{~name}}
-  {{~else~}}
-  {{~nameLowerCase}}
+{{~name}}
+{{~else~}}
+{{~nameLowerCase}}
 {{~/if}}';
 
 storiesOf('<{{ name }} />', module).add('{{ name }}', () => (

@@ -1,10 +1,17 @@
 {{#if scss }}
-{{#if scssinclude}}
+{{~#if scssinclude}}
 {{#each scssinclude}}
 @import '{{this}}';
 {{/each}}
-{{/if}}
+{{~/if}}
 {{/if}}
 
-.{{ name }} {
+{{~#if hyphenatedcss~}}
+.{{ hyphenatedname }} {
+  //css styles
 }
+{{~else~}}
+.{{ name }} {
+  //css styles
+}
+{{~/if}};

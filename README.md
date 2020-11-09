@@ -18,8 +18,8 @@ $ npx crcf myComponent
 
 _([npx](https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b) comes with npm 5.2+ and higher, see [instructions for older npm versions](https://github.com/snaerth/create-react-component-folder/blob/master/docs/npx_instructions.md))_
 
-<p align='center'>
-<img src='https://github.com/snaerth/create-react-component-folder/blob/master/docs/crcf_video.svg' width='600' alt='npx crcf myComponent'>
+<p>
+<img src='./docs/crcf_video.svg' width='600' alt='npx crcf myComponent'>
 </p>
 
 ## Tutorial
@@ -125,6 +125,7 @@ So now all you have to do is type **npx crcf componentName** and you will get al
   "scss",
   "less",
   "nocss",
+  "hyphenatedcss",
   "notest",
   "reactnative",
   "createindex",
