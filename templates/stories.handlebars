@@ -1,14 +1,22 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
-import {{#if export~}} { {{ name }} } {{else~}} {{name}} {{~/if}} from './
-{{~#if uppercase~}}
-{{~name}}
-{{~else~}}
-{{~nameLowerCase}}
-{{~/if}}';
+{{#if typescript}}import { Story, Meta } from '@storybook/react/types-6-0';{{/if}}
+import {{#if export~}} { {{ name }} } {{else~}} {{ name }} {{~/if}} from './index';
+{{#if typescript~}}
+  import { {{ name }}{{patternName}}Props } from './
+  {{~#if uppercase~}}
+    {{~name}}{{patternFile}}
+    {{~else~}}
+    {{~nameLowerCase}}{{patternFile}}
+  {{~/if}}';
+{{/if}}
 
-storiesOf('<{{ name }} />', module).add('{{ name }}', () => (
-  <div>
-    <{{ name }} />
-  </div>
-));
+export default {
+component: {{~#if uppercase~}} {{~name}} {{~else~}} {{~nameLowerCase}} {{~/if}},
+title: '{{~#if uppercase~}} {{~name}} {{~else~}} {{~nameLowerCase}} {{~/if}}'
+}{{#if typescript}} as Meta{{/if}};
+
+const Template{{#if typescript}}: Story<{{~name}}{{patternName}}Props>{{/if}} = args => <{{name}} {...args} />;
+
+export const Default = Template.bind({});
+Default.args = {
+};

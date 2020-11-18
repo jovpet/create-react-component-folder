@@ -136,6 +136,7 @@ So now all you have to do is type **npx crcf componentName** and you will get al
   "nosemi",
   "cssmodules"
   "namedexports",
+  "controller"
   "graphql",
   "stylesext",
   {
@@ -208,6 +209,7 @@ $ npx crcf --help
     --createindex       Creates index.js file for multple component imports
     --graphql           Creates a index.graphql file
     --stylesext         Creates a Component.styles.(ts|js) file
+    --controller        Creates a stateful pattern with index, view and controller file
     -f, --functional    Creates React stateless functional component
     -j, --jsx           Creates the component file with .jsx extension
     -l, --less          Adds .less file to component

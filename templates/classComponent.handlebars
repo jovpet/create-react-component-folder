@@ -8,15 +8,15 @@ import PropTypes from 'prop-types';
 {{/if}}
 {{#if typescript }}
 
-{{#if export}}export {{/if}}type {{ name }}Props = {
+export type {{ name }}ViewProps = {
   //
 };
 {{/if}}
 
-{{#if export}}export {{/if}}class {{ name }} extends Component{{~#if typescript}}<{{~ name }}Props, any>{{~/if}} {
+{{#if export}}export {{/if}}class {{ name }}View extends Component{{~#if typescript}}<{{~ name }}ViewProps, any>{{~/if}} {
   {{#if typescript}}public {{/if}}render() {
     return (
-      {{#if reactnative }}
+      {{#if native }}
       <View>
         <Text>{{ name }}</Text>
       </View>
@@ -30,13 +30,13 @@ import PropTypes from 'prop-types';
 }
 
 {{#if proptypes}}
-    {{~ name }}.propTypes = {
-      //
-    };
-    {{#unless export}}
+{{~ name }}View.propTypes = {
+  //
+};
+{{#unless export}}
 
-    {{/unless}}
+{{/unless}}
 {{/if}}
 {{#unless export }}
-export default {{ name }};
+export default {{ name }}View;
 {{/unless}}

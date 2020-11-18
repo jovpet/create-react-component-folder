@@ -1,0 +1,38 @@
+import React, { Component } from 'react';
+{{#if reactnative }}
+import { View, Text } from 'react-native';
+{{/if}}
+{{#if cssmodules}}import classes from './{{ name }}.module.{{ cssext }}';{{/if}}
+{{#if proptypes}}
+import PropTypes from 'prop-types';
+{{/if}}
+import {{#if export }}{ {{ name }}View{{#if typescript~}}, {{ name }}ViewProps {{~/if~}} } {{~else~}} {{ name }}View{{#if typescript~}}, { {{ name }}ViewProps {{~/if~}} } {{/if}} from './{{ name }}.view';
+{{#if typescript }}
+
+export type {{ name }}InputProps = {
+  //
+};
+{{/if}}
+
+{{#if export}}export {{/if}}class {{ name }}Controller extends Component{{~#if typescript}}<{{~ name }}InputProps, any>{{~/if}} {
+// Put All your methods and logic here
+modifiedProps{{#if typescript}}: {{ name }}ViewProps{{/if}} = {};
+
+{{#if typescript}}public {{/if}}render() {
+return (
+  <{{ name }}View {...this.modifiedProps} />
+);
+}
+}
+
+{{#if proptypes}}
+  {{~ name }}Controller.propTypes = {
+  //
+  };
+  {{#unless export}}
+
+  {{/unless}}
+{{/if}}
+{{#unless export }}
+  export default {{ name }}Controller;
+{{/unless}}

@@ -4,3 +4,5 @@ package-lock.json
 .prettierrc
 .DS_Store
 .idea
+.crcfrc
+.test

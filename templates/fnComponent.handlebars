@@ -9,20 +9,19 @@ import React from 'react';
 {{/if}}
 {{#if typescript}}
 
-{{#if export}}export {{/if}}type {{ name }}Props = {
+export type {{ name }}ViewProps = {
   //
 };
 {{/if}}
 
-{{#if export }}export {{/if}}const {{ name }}{{#if typescript}}: React.FC<
-  {{~#if proptypes~}} {{ name ~}} Props {{~else~}} any {{~/if}}> {{~/if}} = () => {
+{{#if export }}export {{/if}}const {{ name }}View = (props{{#if typescript}}: {{ name }}ViewProps{{/if}}){{#if typescript}}: JSX.Element{{~/if}} => {
   return (
     <div>{{name}}</div>
   );
 };
 
 {{#if proptypes~}}
-{{ name }}.propTypes = {
+{{ name }}View.propTypes = {
   //
 };
 {{#unless export}}
@@ -30,5 +29,6 @@ import React from 'react';
 {{/unless}}
 {{/if}}
 {{#unless export }}
-export default {{ name }};
+export default {{ name }}View;
 {{/unless}}
+

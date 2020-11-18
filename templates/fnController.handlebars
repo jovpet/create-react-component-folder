@@ -1,0 +1,30 @@
+{{#if typescript~}}
+  import * as React from 'react';
+{{~else~}}
+  import React from 'react';
+{{/if}}
+import {{#if export }}{ {{ name }}View{{#if typescript~}}, {{ name }}ViewProps {{~/if~}} } {{~else~}} {{ name }}View{{#if typescript~}}, { {{ name }}ViewProps {{~/if~}} } {{/if}} from './{{ name }}.view';
+
+{{#if typescript~}}
+  export type {{ name }}InputProps = {
+  //
+};
+{{/if}}
+
+{{#if export }}export {{/if}}const {{ name }}Controller = (props{{#if typescript}}: {{ name }}InputProps{{/if}}){{#if typescript}}: JSX.Element{{~/if}} => {
+  // Put All your methods and logic here
+  const modifiedProps{{#if typescript}}: {{ name }}ViewProps{{/if}} = {};
+  return <{{ name }}View {...modifiedProps} />;
+};
+
+{{#if proptypes~}}
+{{ name }}Controller.propTypes = {
+  //
+};
+{{#unless export}}
+
+{{/unless}}
+{{/if}}
+{{#unless export }}
+export default {{ name }}Controller;
+{{/unless}}
