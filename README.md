@@ -62,9 +62,9 @@ $ npx crcf components/header footer button navigation
 ```sh
 myComponent
 ├── index.js
-├── myComponent.js
 ├── myComponent.css
 ├── myComponent.test
+├── myComponent.view.js
 ```
 
 ### With storybook enabled
@@ -72,10 +72,23 @@ myComponent
 ```sh
 myComponent
 ├── index.js
-├── myComponent.js
 ├── myComponent.css
 ├── myComponent.test
 ├── myComponent.stories.js
+├── myComponent.view.js
+```
+
+### With GQL enabled
+
+```sh
+myComponent
+├── index.js
+├── myComponent.apollo.js
+├── myComponent.controller.js
+├── myComponent.css
+├── myComponent.test
+├── myComponent.stories.js
+├── myComponent.view.js
 ```
 
 ## Setting default config
@@ -143,7 +156,8 @@ So now all you have to do is type **npx crcf componentName** and you will get al
     "scssinclude": [
       "./src/assets/scss/settings"
     ],
-    "output": "base/directory/to/place/created/components"
+    "output": "base/directory/to/place/created/components",
+    "graphqldefs": "base/directory/for/graphql/graphql-types"
   }
 ]
 ```
@@ -208,6 +222,7 @@ $ npx crcf --help
     --reactnative       Creates React Native components
     --createindex       Creates index.js file for multple component imports
     --graphql           Creates a index.graphql file
+    --graphqldefs       A Path to grapqhl type definitions (if you are using typescript and have types for gql)
     --stylesext         Creates a Component.styles.(ts|js) file
     --controller        Creates a stateful pattern with index, view and controller file
     -f, --functional    Creates React stateless functional component

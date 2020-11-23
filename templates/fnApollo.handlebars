@@ -1,0 +1,46 @@
+{{#if typescript}}
+import * as React from 'react';
+{{else}}
+import React from 'react';
+{{/if}}
+import { gql, useQuery } from '@apollo/client';
+import {{#if export }}{ {{ name }}Controller, {{ name }}ControllerProps } {{~else~}} {{ name }}Controller, { {{ name }}ControllerProps }{{/if}} from './{{ name }}.controller';
+{{#if proptypes}}
+import PropTypes from 'prop-types';
+{{/if}}
+{{#if typescript}}
+import { Get{{ name }}, Get{{ name }}Variables } from '{{ pathToTypesDefinition }}';
+/**
+* NOTE: Make sure that in your schema.graphql file you have a defined query and a required type
+* {{ lowercaseName }}(id: Int): {{ name }}
+**/
+
+export type {{ name }}InventoryProps = {{name}}ControllerProps & {
+  //
+  id: number;
+}
+{{/if}}
+
+const GET_{{ uppercaseName }}_QUERY = gql`
+  query Get{{ name }}($id: Int) {
+    {{ lowercaseName }}(id: $id) {
+      name
+    }
+  }
+`;
+
+{{#if export }}export {{/if}}const {{ name }}Apollo = (props{{#if typescript}}: {{ name }}InventoryProps{{/if}}){{#if typescript}}: JSX.Element | string{{~/if}} => {
+  const { loading, error, data } = useQuery<Get{{ name }}, Get{{ name }}Variables>(GET_{{ uppercaseName }}_QUERY, {
+    variables: {
+      id: props.id
+    }
+  });
+
+  const args = data?.{{ lowercaseName }} || {}
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error...</p>;
+
+  return <{{ name }}Controller {...args} />;
+};
+

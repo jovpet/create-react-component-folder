@@ -6,15 +6,15 @@
 import {{#if export }}{ {{ name }}View{{#if typescript~}}, {{ name }}ViewProps {{~/if~}} } {{~else~}} {{ name }}View{{#if typescript~}}, { {{ name }}ViewProps {{~/if~}} } {{/if}} from './{{ name }}.view';
 
 {{#if typescript~}}
-  export type {{ name }}InputProps = {
-  //
+  export type {{ name }}ControllerProps = {{ name }}ViewProps & {
+  // extend your {{ name }}ViewProps
 };
 {{/if}}
 
-{{#if export }}export {{/if}}const {{ name }}Controller = (props{{#if typescript}}: {{ name }}InputProps{{/if}}){{#if typescript}}: JSX.Element{{~/if}} => {
+{{#if export }}export {{/if}}const {{ name }}Controller = (props{{#if typescript}}: {{ name }}ControllerProps{{/if}}){{#if typescript}}: JSX.Element{{~/if}} => {
   // Put All your methods and logic here
-  const modifiedProps{{#if typescript}}: {{ name }}ViewProps{{/if}} = {};
-  return <{{ name }}View {...modifiedProps} />;
+  const viewProps{{#if typescript}}: {{ name }}ViewProps{{/if}} = {};
+  return <{{ name }}View {...viewProps} />;
 };
 
 {{#if proptypes~}}

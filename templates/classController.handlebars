@@ -9,12 +9,12 @@ import PropTypes from 'prop-types';
 import {{#if export }}{ {{ name }}View{{#if typescript~}}, {{ name }}ViewProps {{~/if~}} } {{~else~}} {{ name }}View{{#if typescript~}}, { {{ name }}ViewProps {{~/if~}} } {{/if}} from './{{ name }}.view';
 {{#if typescript }}
 
-export type {{ name }}InputProps = {
+export type {{ name }}ControllerProps = {
   //
 };
 {{/if}}
 
-{{#if export}}export {{/if}}class {{ name }}Controller extends Component{{~#if typescript}}<{{~ name }}InputProps, any>{{~/if}} {
+{{#if export}}export {{/if}}class {{ name }}Controller extends Component{{~#if typescript}}<{{~ name }}ControllerProps, any>{{~/if}} {
 // Put All your methods and logic here
 modifiedProps{{#if typescript}}: {{ name }}ViewProps{{/if}} = {};
 
