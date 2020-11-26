@@ -1,8 +1,91 @@
 import {{#if typescript }}* as {{/if}}React from 'react';
-import {{#if typescript }}* as {{/if}}render from '@testing-library/react';
+import { act, create{{#if typescript }}, ReactTestRenderer, ReactTestRendererJSON{{/if}} } from 'react-test-renderer';
 import {{#if export~}} { {{ name }} } {{else~}} {{name}} {{~/if}} from './index';
+{{#if hasApollo ~}}
+  import { MockedProvider } from '@apollo/client/testing';
+  import { GET_{{ nameUpperCase }}_QUERY } from './{{name}}.apollo'
+{{/if}}
 
-it('renders correctly', () => {
-  const tree = renderer.create(<{{ name }} />).toJSON();
-  expect(tree).toMatchSnapshot();
+{{#if hasApollo}}
+{{#if hasStory}}
+const request = {
+  query: GET_{{ nameUpperCase }}_QUERY,
+  variables: {
+    id: '1'
+  }
+};
+
+export const {{ name }}SuccessMocks = [
+  {
+    request,
+    result: {
+      data: {
+        test: { id: '1', name: '{{ name }} Name' }
+      }
+    }
+  }
+];
+
+export const {{ name }}ErrorMocks = [
+  {
+    request,
+    error: new Error('error, error, error :(')
+  }
+];
+{{/if}}
+
+it('should show error UI', async () => {
+  let component{{#if typescript }}: ReactTestRenderer{{/if}};
+
+  await act(async () => {
+    component = create(
+      <MockedProvider mocks={ {{ name }}ErrorMocks } addTypename>
+         <{{ name }} id={'1'} />
+      </MockedProvider>
+    );
+
+    await new Promise(resolve => setTimeout(resolve, 10)); // wait for response
+
+    const tree = component.toJSON(){{#if typescript }} as ReactTestRendererJSON{{/if}};
+    expect(tree.children).toContain('Error...');
+  });
 });
+
+it('should show success UI', async () => {
+  let component{{#if typescript }}: ReactTestRenderer{{/if}};
+
+  await act(async () => {
+    component = create(
+      <MockedProvider mocks={ {{ name }}SuccessMocks} addTypename>
+        <{{ name }} id={'1'} />
+      </MockedProvider>
+    );
+
+    await new Promise(resolve => setTimeout(resolve, 10)); // wait for response
+
+    const tree = component.toJSON(){{#if typescript }} as ReactTestRendererJSON{{/if}};
+    expect(tree.children).toContain('Test');
+  });
+});
+
+it('should show loading UI', async () => {
+  let component{{#if typescript }}: ReactTestRenderer{{/if}};
+
+  component = create(
+    <MockedProvider mocks={[]} addTypename>
+      <{{ name }} id={'1'} />
+    </MockedProvider>
+  );
+
+  const tree = component.toJSON(){{#if typescript }} as ReactTestRendererJSON{{/if}};
+  expect(tree.children).toContain('Loading...');
+});
+{{else}}
+
+it('should show component content', () => {
+  const component{{#if typescript}}: ReactTestRenderer{{/if}} = create(<{{ name }} />);
+  const tree = component.toJSON(){{#if typescript}} as ReactTestRendererJSON{{/if}};
+
+  expect(tree.children).toContain('{{ name }}');
+});
+{{/if}}

@@ -1,22 +1,82 @@
 import React from 'react';
 {{#if typescript}}import { Story, Meta } from '@storybook/react/types-6-0';{{/if}}
 import {{#if export~}} { {{ name }} } {{else~}} {{ name }} {{~/if}} from './index';
-{{#if typescript~}}
-  import { {{ name }}{{patternName}}Props } from './
-  {{~#if uppercase~}}
-    {{~name}}{{patternFile}}
-    {{~else~}}
-    {{~nameLowerCase}}{{patternFile}}
-  {{~/if}}';
+{{#if hasApollo}}
+{{#if typescript}}
+import { {{#if notest}}GET_{{nameUppercase}}_QUERY, {{/if}}{{name}}ApolloProps } from './{{ name }}.apollo';
+{{else}}
+{{#if notest}}import { GET_{{nameUppercase}}_QUERY } from './{{ name }}.apollo';{{/if}}
 {{/if}}
+{{#unless notest}}
+import { {{ name }}ErrorMocks, {{ name }}SuccessMocks } from './{{ name }}.test';
+{{/unless}}
+{{/if}}
+{{#unless hasApollo}}
+{{#if typescript}}import { {{ name }}{{patternName}}Props } from './{{name}}{{patternFile}}{{/if}}';
+{{/unless}}
 
 export default {
-component: {{~#if uppercase~}} {{~name}} {{~else~}} {{~nameLowerCase}} {{~/if}},
-title: '{{~#if uppercase~}} {{~name}} {{~else~}} {{~nameLowerCase}} {{~/if}}'
+  component: {{ name }},
+  title: '{{componentPath}}'
 }{{#if typescript}} as Meta{{/if}};
 
-const Template{{#if typescript}}: Story<{{~name}}{{patternName}}Props>{{/if}} = args => <{{name}} {...args} />;
-
-export const Default = Template.bind({});
-Default.args = {
+{{#if notest}}
+const request = {
+  query: GET_{{nameUppercase}}_QUERY,
+  variables: {
+    id: '1'
+  }
 };
+
+const {{ name }}SuccessMocks = [
+  {
+    request,
+    result: {
+      data: {
+        test: { id: '1', name: '{{ name }} Name' }
+      }
+    }
+  }
+];
+
+const {{ name }}ErrorMocks = [
+  {
+    request,
+    error: new Error('error, error, error :(')
+  }
+];
+{{/if}}
+
+const Template{{#if typescript}}: Story<{{~name}}{{patternName}}Props>{{/if}} = {{#if typescript~}} (args: {{name}}{{patternName}}Props){{~else~}} args{{/if}} => <{{name}} {...args} />;
+
+export const DefaultState = Template.bind({});
+{{#if hasApollo}}
+export const LoadingState = Template.bind({});
+export const ErrorState = Template.bind({});
+{{/if}}
+
+DefaultState.args {{~#if hasApollo}} = LoadingState.args = ErrorState.args {{~/if}} = {
+{{~#if hasApollo}}
+  id: '1'
+{{~/if~}}
+};
+
+{{#if hasApollo}}
+DefaultState.parameters = {
+  apolloClient: {
+    mocks: {{ name }}SuccessMocks
+  }
+};
+
+LoadingState.parameters = {
+  apolloClient: {
+    mocks: []
+  }
+};
+
+ErrorState.parameters = {
+  apolloClient: {
+    mocks: {{ name }}ErrorMocks
+  }
+};
+{{~/if~}}

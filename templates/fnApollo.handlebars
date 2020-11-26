@@ -4,7 +4,7 @@ import * as React from 'react';
 import React from 'react';
 {{/if}}
 import { gql, useQuery } from '@apollo/client';
-import {{#if export }}{ {{ name }}Controller, {{ name }}ControllerProps } {{~else~}} {{ name }}Controller, { {{ name }}ControllerProps }{{/if}} from './{{ name }}.controller';
+import {{#if export }}{ {{ name }}Controller{{#if typescript}}, {{ name }}ControllerProps{{/if}} } {{~else~}} {{ name }}Controller{{#if typescript}}, { {{ name }}ControllerProps }{{/if}}{{/if}} from './{{ name }}.controller';
 {{#if proptypes}}
 import PropTypes from 'prop-types';
 {{/if}}
@@ -15,13 +15,13 @@ import { Get{{ name }}, Get{{ name }}Variables } from '{{ pathToTypesDefinition 
 * {{ lowercaseName }}(id: Int): {{ name }}
 **/
 
-export type {{ name }}InventoryProps = {{name}}ControllerProps & {
+export type {{ name }}ApolloProps = {{name}}ControllerProps & {
   //
-  id: number;
+  id: string;
 }
 {{/if}}
 
-const GET_{{ uppercaseName }}_QUERY = gql`
+export const GET_{{ uppercaseName }}_QUERY = gql`
   query Get{{ name }}($id: Int) {
     {{ lowercaseName }}(id: $id) {
       name
@@ -29,8 +29,8 @@ const GET_{{ uppercaseName }}_QUERY = gql`
   }
 `;
 
-{{#if export }}export {{/if}}const {{ name }}Apollo = (props{{#if typescript}}: {{ name }}InventoryProps{{/if}}){{#if typescript}}: JSX.Element | string{{~/if}} => {
-  const { loading, error, data } = useQuery<Get{{ name }}, Get{{ name }}Variables>(GET_{{ uppercaseName }}_QUERY, {
+{{#if export }}export {{/if}}const {{ name }}Apollo = (props{{#if typescript}}: {{ name }}ApolloProps{{/if}}){{#if typescript}}: JSX.Element{{~/if}} => {
+  const { loading, error, data } = useQuery{{#if typescript}}<Get{{ name }}, Get{{ name }}Variables>{{/if}}(GET_{{ uppercaseName }}_QUERY, {
     variables: {
       id: props.id
     }
@@ -43,4 +43,16 @@ const GET_{{ uppercaseName }}_QUERY = gql`
 
   return <{{ name }}Controller {...args} />;
 };
+
+{{#if proptypes~}}
+{{ name }}Apollo.propTypes = {
+//
+};
+{{#unless export}}
+
+{{/unless}}
+{{/if}}
+{{#unless export }}
+export default {{ name }}Apollo;
+{{/unless}}
 
