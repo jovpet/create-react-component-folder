@@ -1,6 +1,6 @@
 {
   "name": "create-react-component-folder-jovpet",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "Creates single react component folder structure. Forked version with enhanced scss",
   "main": "./lib/index",
   "readme": "README.md",

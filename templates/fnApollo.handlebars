@@ -22,7 +22,7 @@ export type {{ name }}ApolloProps = {{name}}ControllerProps & {
 {{/if}}
 
 export const GET_{{ uppercaseName }}_QUERY = gql`
-  query Get{{ name }}($id: Int) {
+  query Get{{ name }}($id: ID!) {
     {{ lowercaseName }}(id: $id) {
       name
     }
