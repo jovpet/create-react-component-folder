@@ -12,6 +12,9 @@ import { {{ name }}ErrorMocks, {{ name }}SuccessMocks } from './{{ name }}.mocks
 {{#unless hasApollo}}
 {{#if typescript}}import { {{ name }}{{patternName}}Props } from './{{name}}{{patternFile}}';{{/if}}
 {{/unless}}
+{{#if apolloLink}}
+import { {{ apolloLinkName }} } from '{{ apolloLinkPath }}';
+{{/if}}
 
 export default {
   component: {{ name }},
@@ -41,7 +44,7 @@ DefaultState.parameters = {
 
 LoadingState.parameters = {
   apolloClient: {
-    mocks: []
+    mocks: {{#if apolloLink}}new {{ apolloLinkName }}(){{else}}[]{{/if}}
   }
 };
 
