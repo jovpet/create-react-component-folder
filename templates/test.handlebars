@@ -1,45 +1,16 @@
 import {{#if typescript }}* as {{/if}}React from 'react';
-import { act, create{{#if typescript }}, ReactTestRenderer, ReactTestRendererJSON{{/if}} } from 'react-test-renderer';
+import { act, create{{#if typescript }}, ReactTestRenderer, ReactTestRendererJSON, ReactTestRendererNode{{/if}} } from 'react-test-renderer';
 import {{#if export~}} { {{ name }} } {{else~}} {{name}} {{~/if}} from './index';
-{{#if hasApollo ~}}
-  import { MockedProvider } from '@apollo/client/testing';
-  import { GET_{{ nameUpperCase }}_QUERY } from './{{name}}.apollo'
-{{/if}}
-
 {{#if hasApollo}}
-{{#if hasStory}}
-const request = {
-  query: GET_{{ nameUpperCase }}_QUERY,
-  variables: {
-    id: '1'
-  }
-};
-
-export const {{ name }}SuccessMocks = [
-  {
-    request,
-    result: {
-      data: {
-        test: { id: '1', name: '{{ name }} Name' }
-      }
-    }
-  }
-];
-
-export const {{ name }}ErrorMocks = [
-  {
-    request,
-    error: new Error('error, error, error :(')
-  }
-];
-{{/if}}
+import { MockedProvider } from '@apollo/client/testing';
+import { {{ name }}ErrorMocks, {{ name }}SuccessMocks } from './{{ name }}.mocks';
 
 it('should show error UI', async () => {
   let component{{#if typescript }}: ReactTestRenderer{{/if}};
 
   await act(async () => {
     component = create(
-      <MockedProvider mocks={ {{ name }}ErrorMocks } addTypename>
+      <MockedProvider mocks={ {{ name }}ErrorMocks }>
          <{{ name }} id={'1'} />
       </MockedProvider>
     );
@@ -47,7 +18,7 @@ it('should show error UI', async () => {
     await new Promise(resolve => setTimeout(resolve, 10)); // wait for response
 
     const tree = component.toJSON(){{#if typescript }} as ReactTestRendererJSON{{/if}};
-    expect(tree.children).toContain('Error...');
+    expect({{#if typescript }}({{/if}}tree.children{{#if typescript }} as ReactTestRendererNode[]){{/if}}[0]).toContain('graphQLErrors');
   });
 });
 
@@ -56,7 +27,7 @@ it('should show success UI', async () => {
 
   await act(async () => {
     component = create(
-      <MockedProvider mocks={ {{ name }}SuccessMocks} addTypename>
+      <MockedProvider mocks={ {{ name }}SuccessMocks}>
         <{{ name }} id={'1'} />
       </MockedProvider>
     );
@@ -72,7 +43,7 @@ it('should show loading UI', async () => {
   let component{{#if typescript }}: ReactTestRenderer{{/if}};
 
   component = create(
-    <MockedProvider mocks={[]} addTypename>
+    <MockedProvider mocks={[]}>
       <{{ name }} id={'1'} />
     </MockedProvider>
   );

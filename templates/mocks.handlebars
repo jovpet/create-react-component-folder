@@ -1,0 +1,31 @@
+import { GET_{{ nameUpperCase }}_QUERY } from './{{ name }}.apollo';
+{{#if typescript }}
+import { MockedResponse } from '@apollo/client/testing';
+import { Get{{ name }} } from '{{ pathToTypesDefinition }}';
+import { GraphQLRequest } from '@apollo/client/link/core';
+{{/if}}
+
+const request{{#if typescript }}: GraphQLRequest{{/if}} = {
+  query: GET_{{ nameUpperCase }}_QUERY,
+  variables: {
+    id: '1'
+  }
+};
+
+export const {{ name }}SuccessMocks{{#if typescript }}: MockedResponse<Get{{ name }}>[]{{/if}} = [
+  {
+    request,
+    result: {
+      data: {
+        test: { id: '1', name: '{{ name }} Name' }
+      }
+    }
+  }
+];
+
+export const {{ name }}ErrorMocks{{#if typescript }}: MockedResponse<Get{{ name }}>[]{{/if}} = [
+  {
+    request,
+    error: new Error('error, error, error :(')
+  }
+];

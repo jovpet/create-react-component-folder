@@ -7,45 +7,16 @@ import { {{#if notest}}GET_{{nameUppercase}}_QUERY, {{/if}}{{name}}ApolloProps }
 {{else}}
 {{#if notest}}import { GET_{{nameUppercase}}_QUERY } from './{{ name }}.apollo';{{/if}}
 {{/if}}
-{{#unless notest}}
-import { {{ name }}ErrorMocks, {{ name }}SuccessMocks } from './{{ name }}.test';
-{{/unless}}
+import { {{ name }}ErrorMocks, {{ name }}SuccessMocks } from './{{ name }}.mocks';
 {{/if}}
 {{#unless hasApollo}}
-{{#if typescript}}import { {{ name }}{{patternName}}Props } from './{{name}}{{patternFile}}{{/if}}';
+{{#if typescript}}import { {{ name }}{{patternName}}Props } from './{{name}}{{patternFile}}';{{/if}}
 {{/unless}}
 
 export default {
   component: {{ name }},
   title: '{{contextPath}}'
 }{{#if typescript}} as Meta{{/if}};
-
-{{#if notest}}
-const request = {
-  query: GET_{{nameUppercase}}_QUERY,
-  variables: {
-    id: '1'
-  }
-};
-
-const {{ name }}SuccessMocks = [
-  {
-    request,
-    result: {
-      data: {
-        test: { id: '1', name: '{{ name }} Name' }
-      }
-    }
-  }
-];
-
-const {{ name }}ErrorMocks = [
-  {
-    request,
-    error: new Error('error, error, error :(')
-  }
-];
-{{/if}}
 
 const Template{{#if typescript}}: Story<{{~name}}{{patternName}}Props>{{/if}} = {{#if typescript~}} (args: {{name}}{{patternName}}Props){{~else~}} args{{/if}} => <{{name}} {...args} />;
 
