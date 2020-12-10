@@ -4,6 +4,9 @@ import { MockedResponse } from '@apollo/client/testing';
 import { Get{{ name }} } from '{{ pathToTypesDefinition }}';
 import { GraphQLRequest } from '@apollo/client/link/core';
 {{/if}}
+{{#if apolloLink}}
+import { {{ apolloLinkName }} } from '{{ apolloLinkPath }}';
+{{/if}}
 
 const request{{#if typescript }}: GraphQLRequest{{/if}} = {
   query: GET_{{ nameUpperCase }}_QUERY,

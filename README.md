@@ -157,7 +157,11 @@ So now all you have to do is type **npx crcf componentName** and you will get al
       "./src/assets/scss/settings"
     ],
     "output": "base/directory/to/place/created/components",
-    "graphqldefs": "base/directory/for/graphql/graphql-types"
+    "graphqldefs": "base/directory/for/graphql/graphql-types",
+    "apollolink": {
+      "path": "./apollo/LoadingApolloLink.js",
+      "name": "LoadingApolloLink"
+    }
   }
 ]
 ```
@@ -223,6 +227,11 @@ $ npx crcf --help
     --createindex       Creates index.js file for multple component imports
     --graphql           Creates a index.graphql file
     --graphqldefs       A Path to grapqhl type definitions (if you are using typescript and have types for gql)
+    --apollolink        An object containing definitions for apollo Mocking link i.e
+                        {
+                          "path": "./apollo/LoadingApolloLink.js",
+                          "name": "LoadingApolloLink"
+                        }
     --stylesext         Creates a Component.styles.(ts|js) file
     --controller        Creates a stateful pattern with index, view and controller file
     -f, --functional    Creates React stateless functional component
